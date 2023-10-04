@@ -150,9 +150,16 @@ VALUES
     
 select min(id) from duplicates group by value;
 DELETE FROM duplicates WHERE id NOT IN (SELECT MIN(id) FROM duplicates GROUP BY value);
+
 DELETE FROM Duplicates
 WHERE id NOT IN (
     SELECT MIN(id)
     FROM Duplicates
     GROUP BY value
 );
+
+
+CREATE TEMPORARY TABLE TempMinIds AS
+SELECT MIN(id) AS min_id
+FROM duplicates
+GROUP BY value;
